@@ -1,13 +1,15 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.3)
 project(mav_state_machine_msgs)
 
-find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
-include_directories(include ${catkin_INCLUDE_DIRS})
+find_package(ament_cmake REQUIRED)
+find_package(std_msgs REQUIRED)
 
+rosidl_generate_interfaces(${PROJECT_NAME}
+  msg/StartStopTask.msg
+  srv/RunTaskService.srv
+  DEPENDENCIES std_msgs
+)
 
-add_message_files()
-add_service_files()
+ament_export_dependencies(rosidl_default_runtime std_msgs)
 
-generate_messages(DEPENDENCIES std_msgs)
-
-catkin_package(CATKIN_DEPENDS message_runtime)
+ament_package()
